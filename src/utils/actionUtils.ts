@@ -4,7 +4,8 @@
  *--------------------------------------------------------------------------------------------*/
 
 import { ActionsGetJobForWorkflowRunResponseData, ActionsGetWorkflowRunResponseData } from '@octokit/types';
-import * as moment from 'moment';
+import * as dayjs from 'dayjs';
+import * as relativeTime from 'dayjs/plugin/relativeTime';
 import * as path from 'path';
 import { TreeItemIconPath } from 'vscode-azureextensionui';
 import { ActionWorkflowStepData, Conclusion, Status } from "../gitHubTypings";
@@ -18,11 +19,12 @@ export function getActionIconPath(data: ActionWorkflowStepData | ActionsGetJobFo
 }
 
 export function getActionDescription(data: ActionWorkflowStepData | ActionsGetJobForWorkflowRunResponseData): string {
+    dayjs.extend(relativeTime);
     if (data.conclusion !== null) {
-        return localize('conclusionDescription', '{0} {1}', convertConclusionToVerb(ensureConclusion(data)), moment(data.completed_at).fromNow());
+        return localize('conclusionDescription', '{0} {1}', convertConclusionToVerb(ensureConclusion(data)), dayjs(data.completed_at).fromNow(true));
     } else {
         const nowStr: string = localize('now', 'now');
-        return localize('statusDescription', '{0} {1}', convertStatusToVerb(ensureStatus(data)), new Date(data.started_at).getTime() === 0 ? nowStr : moment(data.started_at).fromNow());
+        return localize('statusDescription', '{0} {1}', convertStatusToVerb(ensureStatus(data)), new Date(data.started_at).getTime() === 0 ? nowStr : dayjs(data.started_at).fromNow(true));
     }
 }
 
