@@ -440,6 +440,7 @@
     },
     "dependencies": {
         "@octokit/rest": "^18.0.3",
+        "dayjs": "^1.8.36",
         "fs-extra": "^8.1.0",
         "git-url-parse": "^11.1.2",
         "moment": "^2.27.0",
