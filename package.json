@@ -443,7 +443,6 @@
         "dayjs": "^1.8.36",
         "fs-extra": "^8.1.0",
         "git-url-parse": "^11.1.2",
-        "moment": "^2.27.0",
         "ms-rest": "^2.5.3",
         "request": "^2.88.2",
         "request-promise": "^4.2.6",
